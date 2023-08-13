@@ -16,7 +16,7 @@ class SerialCommunication{
         UnbufferedSerial serialPort;
 
         //初期化処理
-        SerialCommunication(int speed=9600);
+        SerialCommunication(int speed=9600, PinName tx=USBTX, PinName rx=USBRX);
 
         //受信時に割り込みで実行する関数funcを設定
         void attach(function<void(string)> f);
@@ -26,6 +26,8 @@ class SerialCommunication{
 
         //一行送信(末尾の'\n'は必要なし)
         void writeline(string comment);
+
+        bool _s1=false;
 
     private:
         //前の改行から現時点で受信した文字列

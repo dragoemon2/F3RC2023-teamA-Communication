@@ -3,7 +3,7 @@
 
 using namespace std;
 
-SerialCommunication::SerialCommunication(int speed): serialPort(USBTX, USBRX) {
+SerialCommunication::SerialCommunication(int speed, PinName tx, PinName rx): serialPort(tx, rx) {
     str = "";
     func = [](string comment) {return;};
     serialPort.baud(speed);
@@ -32,6 +32,7 @@ void SerialCommunication::readChar() {
             str = str + c;
         }
     }
+    _s1 = true;
 }
 
 void SerialCommunication::attach(function<void(string)> f) {

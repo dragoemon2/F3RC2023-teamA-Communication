@@ -1,38 +1,36 @@
+
 #include <Arduino.h>
 #include "PS4Controller.h"
 
 PS4Controller ps4;
-HardwareSerial mbed;
 
-/*
+HardwareSerial mbed(1);
+
 void setup(){
-    //初期化処理
-}
-
-void loop(){
-    //ループ処理
-}*/
-
-void setup() {
-  ps4.begin("1a:2b:3c:01:01:01");
+    ps4.begin("24:6f:28:04:41:66");
+    Serial.begin(9600);
+    mbed.begin(9600,SERIAL_8N1,32,33);
 }
 
 void loop() {
   if (ps4.isConnected()) {
     if (ps4.Right()) {
         //右ボタンが押された時
+        mbed.println("right");
     }
 
     if (ps4.Down()) {
         //下ボタンが押された時
+        mbed.println("down");
     }
     
     if (ps4.Up()) {
         //上ボタンが押された時
+        mbed.println("up");
     }
 
     if (ps4.Left()) {
-
+        mbed.println("left");
     }
 
     if (ps4.Square()) {

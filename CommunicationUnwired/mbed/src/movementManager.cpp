@@ -12,5 +12,6 @@ void MovementManager::update(string str){
     //int N = sscanf(str.c_str(), フォーマット, 変数1ポインタ, 変数2ポインタ, ...);
     //Nの値が変数の個数と異なるときはreturn; (通信で何らかの問題が起きたと判断し例外処理する)
     //ロボットがするべき動きをメンバ変数に書き込む
-    //もし新しい命令なら，flag = true;を実行(mainloopがこれを検知する)
+    //もし調整モード(flagがfalse)であり，次の動作に行けという命令なら，flag = true; を実行(mainloopがこれを検知する)
 }
+

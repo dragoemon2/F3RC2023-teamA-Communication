@@ -8,29 +8,35 @@ HardwareSerial mbed(1);
 
 void setup(){
     ps4.begin("24:6f:28:04:41:66");
-    Serial.begin(9600);
-    mbed.begin(9600,SERIAL_8N1,32,33);
+    Serial.begin(115200);
+    //mbed.begin(9600,SERIAL_8N1,32,33);
+    Serial.println("started");
 }
 
 void loop() {
+  delay(10);
   if (ps4.isConnected()) {
     if (ps4.Right()) {
         //右ボタンが押された時
-        mbed.println("right");
+        //mbed.println("right");
+        Serial.println("right");
     }
 
     if (ps4.Down()) {
         //下ボタンが押された時
-        mbed.println("down");
+        //mbed.println("down");
+        Serial.println("down");
     }
     
     if (ps4.Up()) {
         //上ボタンが押された時
-        mbed.println("up");
+        //mbed.println("up");
+        Serial.println("up");
     }
 
     if (ps4.Left()) {
-        mbed.println("left");
+        //mbed.println("left");
+        Serial.println("left");
     }
 
     if (ps4.Square()) {
@@ -113,5 +119,7 @@ void loop() {
     //ヘッドフォンしてるかps4.Audio()
     //マイクしてるかps4.Mic()
     
+  }else{
+    Serial.println("connecting");
   }
 }

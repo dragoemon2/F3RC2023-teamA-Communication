@@ -13,25 +13,44 @@ R1の動きをpublicメンバ変数にして(またはprivateにしてpublicメ�
 
 using namespace std;
 
+#define HAND_MODE (0)
+#define AUTO_MODE (1)
+#define COMPLETELY_AUTO_MODE (2)
+
 class MovementManager{
+    private:
+        //正規化したジョイスティックの値
+        float ljoystick_x = 0;
+        float ljoystick_y = 0;
+        float rjoystick_x = 0;
+        float rjoystick_y = 0;
+
+        bool left_rotate_button = false;
+        bool right_rotate_button = false;
+
+        void setTargetSpeed();
+
     public:
         SerialCommunication serial;
 
         //ロボットがするべき動きを決めたメンバ変数を作って．以下は一例
 
-        //1. 動作番号を表すunsigned int
+        //動作番号
+        int movement_id = 0;
 
-        //2. ロボットの動くべき速度[mm/s](手動時および調整時)
+        //自動モードか手動モードか
+        int mode = HAND_MODE;
 
-        //3. 自動/手動モードを示すbool変数
-
-        //4. ジョイスティックなどの値
+        //ジョイスティックやボタンの値から検出した目標の速度
+        float targetSpeedX = 0;
+        float targetSpeedY = 0;
+        float targetSpeedD = 0;
 
         //動作モードであることを示すflag
         bool flag = false;
 
         //受信があると実行される
-        void update(string str); 
+        void update(string str);
 
         MovementManager();
 };

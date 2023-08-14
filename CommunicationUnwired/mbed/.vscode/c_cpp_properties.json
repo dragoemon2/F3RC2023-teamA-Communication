@@ -1,8 +1,3 @@
-//
-// !!! WARNING !!! AUTO-GENERATED FILE!
-// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
-// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
-//
 {
     "configurations": [
         {
@@ -10,9 +5,20 @@
             "includePath": [
                 "/Users/ryunosuke/Documents/keio_robot/F3RC2023-teamA-Communication/CommunicationUnwired/mbed/include",
                 "/Users/ryunosuke/Documents/keio_robot/F3RC2023-teamA-Communication/CommunicationUnwired/mbed/src",
-                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/**",
                 "/Users/ryunosuke/Documents/keio_robot/F3RC2023-teamA-Communication/CommunicationUnwired/mbed/.pio/build/nucleo_f446re",
-                ""
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/platform/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/rtos/tests/UNITTESTS/doubles",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/events/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/platform/cxxsupport",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/cmsis/tests/UNITTESTS/doubles",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/hal/tests/UNITTESTS/doubles",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/hal/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/platform/include/platform",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/drivers/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/rtos/include",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/rtos/include/rtos",
+                "/Users/ryunosuke/.platformio/packages/framework-mbed@src-c33fc38bdd3355f3735da9403dceb1e7/hal/include/hal"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,

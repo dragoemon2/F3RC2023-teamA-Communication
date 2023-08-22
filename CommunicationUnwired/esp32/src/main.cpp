@@ -4,122 +4,103 @@
 
 PS4Controller ps4;
 
-HardwareSerial mbed(1);
+
+bool next_button = false;
+bool increment_button = false;
+bool decrement_button = false;
+
+bool hand_button = false;
+bool auto_button = false;
+
+int next_serial_time;
+
+#define SERIAL_INTERNAL (10)
+
+//HardwareSerial Serial(0);
+
+
+#if 1
+#include <esp_bt_main.h>
+#include <esp_bt_device.h>
+
+char str[100];
+
+void setup()
+{
+    uint8_t new_mac[8] = {0x24, 0x6f, 0x28, 0x04, 0x41, 0x66};
+    esp_base_mac_addr_set(new_mac);
+    Serial.begin(115200);
+    PS4.begin();
+    const uint8_t* address = esp_bt_dev_get_address();
+    sprintf(str, "ESP32's Bluetooth MAC address is - %02x:%02x:%02x:%02x:%02x:%02x", address[0],address[1],address[2],address[3],address[4],address[5]);
+}
+
+void loop()
+{
+    Serial.println(str);
+}
+
+
+#else
 
 void setup(){
+    uint8_t new_mac[8] = {0x24, 0x6f, 0x28, 0x04, 0x41, 0x66};
+    esp_base_mac_addr_set(new_mac);
     ps4.begin("24:6f:28:04:41:66");
+    // ps4.begin("28:C1:3C:3F:D4:80");
+    #if 1
     Serial.begin(115200);
-    //mbed.begin(9600,SERIAL_8N1,32,33);
     Serial.println("started");
+    #else
+    Serial.begin(9600);
+    #endif
+
+    next_serial_time = millis();
 }
+
+
 
 void loop() {
-  delay(10);
-  if (ps4.isConnected()) {
-    if (ps4.Right()) {
-        //右ボタンが押された時
-        //mbed.println("right");
-        Serial.println("right");
-    }
+    delay(1);
+    if(ps4.isConnected()){
+        if(millis() >= next_serial_time){
+            next_serial_time += SERIAL_INTERNAL;
 
-    if (ps4.Down()) {
-        //下ボタンが押された時
-        //mbed.println("down");
-        Serial.println("down");
-    }
-    
-    if (ps4.Up()) {
-        //上ボタンが押された時
-        //mbed.println("up");
-        Serial.println("up");
-    }
+            //ジョイスティックの値の送信
+            Serial.printf("J %d %d %d %d B %d %d\n", ps4.LStickX(), ps4.LStickY(), ps4.RStickX(), ps4.RStickY(), ps4.L2(), ps4.R2());
 
-    if (ps4.Left()) {
-        //mbed.println("left");
-        Serial.println("left");
-    }
+            delay(1);
 
-    if (ps4.Square()) {
+            //L2，R2ボタン
+            //Serial.printf("aB %d %d\n", ps4.L2(), ps4.R2());
+        }
+        
+        //その他切り替え用のボタン
+        if(!next_button && ps4.Cross()){
+            Serial.printf("z\n");
+        }
+        next_button = ps4.Cross();
 
-    }
+        if(!increment_button && ps4.Triangle()){
+            Serial.printf("a\n");
+        }
+        increment_button = ps4.Triangle();
 
-    if (ps4.Cross()) {
+        if(!decrement_button && ps4.Up()){
+            Serial.printf("b\n");
+        }
+        decrement_button = ps4.Up();
 
-    }
+        if(!hand_button && ps4.R1()){
+            Serial.printf("c\n");
+        }
+        hand_button = ps4.R1();
 
-    if (ps4.Circle()) {
-
-    }
-
-    if (ps4.Triangle()) {
+        if(!auto_button && ps4.L1()){
+            Serial.printf("d\n");
+        }
+        auto_button = ps4.L1();
         
     }
-
-    if (ps4.UpRight()) {
-
-    }
-
-    if (ps4.DownRight()) {
-
-    }
-
-    if (ps4.UpLeft()) {
-
-    }
-
-    if (ps4.DownLeft()) {
-
-    }
-
-    if (ps4.L1()) {
-
-    }
-
-    if (ps4.R1()) {
-
-    }
-
-    if (ps4.Share()) {
-
-    }
-
-    if (ps4.Options()) {
-
-    }
-
-    if (ps4.L3()) {
-
-    }
-
-    if (ps4.R3()) {
-
-    }
-
-    if (ps4.PSButton()) {
-
-    }
-
-    if (ps4.Touchpad()) {
-
-    }
-
-    if (ps4.L2()) {
-        //uint8_t ps4.L2Value();で値を読める
-    }
-
-    if (ps4.R2()) {
-        //uint8_t ps4.L2Value();で値を読める
-    }
-
-    //バッテリーレベルps4.Battery()でわかる
-
-    //ジョイスティックはint8_t ps4.LStickX(), ps4.LStickY(), ps4.RStickX(), ps4.RStickY()で読める
-    
-    //充電してるかps4.Charging()
-    //ヘッドフォンしてるかps4.Audio()
-    //マイクしてるかps4.Mic()
-    
-  }else{
-    Serial.println("connecting");
-  }
 }
+#endif

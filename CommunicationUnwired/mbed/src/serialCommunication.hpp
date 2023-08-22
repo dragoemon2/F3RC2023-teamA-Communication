@@ -27,11 +27,15 @@ class SerialCommunication{
         //一行送信(末尾の'\n'は必要なし)
         void writeline(string comment);
 
+        void loop();
+
         bool _s1=false;
 
-    private:
         //前の改行から現時点で受信した文字列
         string str;
+
+    private:
+        
 
         //受信時に割り込みで実行する関数
         function<void(string)> func; 

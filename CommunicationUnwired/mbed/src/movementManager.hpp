@@ -22,6 +22,7 @@ class MovementManager{
         //正規化したジョイスティックの値
         float ljoystick_x = 0;
         float ljoystick_y = 0;
+
         float rjoystick_x = 0;
         float rjoystick_y = 0;
 
@@ -47,6 +48,7 @@ class MovementManager{
         float targetSpeedD = 0;
 
         //動作モードであることを示すflag
+        //trueなら動作モード，falseなら調整モード
         bool flag = false;
 
         //受信があると実行される

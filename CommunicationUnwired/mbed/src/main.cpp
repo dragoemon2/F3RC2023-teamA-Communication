@@ -3,19 +3,12 @@
 
 #include <string>
 
-SerialCommunication esp32(9600, D8, D2);
+SerialCommunication esp32(9600, PA_9, PA_10);
 //SerialCommunication pc;
 
-string line;
-bool flag=false;
-
 int main(){
-    esp32.attach([](string str){line = str; flag=true;});
+    esp32.attach([](string str){printf("%s\n", str.c_str());});
     while(1){
-        if(flag){
-            printf("%s\n", line.c_str());
-            flag = false;
-        }
-        wait_ns(1);
+        esp32.loop();
     }
 }

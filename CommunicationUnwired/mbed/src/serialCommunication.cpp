@@ -12,7 +12,9 @@ SerialCommunication::SerialCommunication(int speed, PinName tx, PinName rx): ser
         /* parity */ SerialBase::None,
         /* stop bit */ 1
     );
+    #if 0
     serialPort.attach([this]() {readChar();});
+    #endif
 }
 
 void SerialCommunication::writeline(string comment) {
@@ -21,15 +23,14 @@ void SerialCommunication::writeline(string comment) {
 }
 
 void SerialCommunication::readChar() {
-    //1文字読んで，改行だったら割り込みで関数functiomを実行
     char c;
     while(serialPort.readable()){
         serialPort.read(&c, 1);
         if(c == '\n'){
             func(str);
-            str = "";
+            str.clear();
         }else{
-            str = str + c;
+            str.push_back(c);
         }
     }
     _s1 = true;
@@ -38,6 +39,10 @@ void SerialCommunication::readChar() {
 void SerialCommunication::attach(function<void(string)> f) {
     //受信時に割り込みで実行される関数を設定
     func = f;
+}
+
+void SerialCommunication::loop(){
+    readChar();
 }
 
 void SerialCommunication::detach(){
